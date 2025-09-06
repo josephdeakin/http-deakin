@@ -1,16 +1,22 @@
 #include <stdio.h>
 #include <string.h>
+#include <limits.h>
 
 #define LOOP_LIMIT  25
 
 int add2Numbers(int x, int y);
 void bootHTTPServer();
 char *reverseStr(char str[]);
+int any(char s1[], char s2[]);
 
+
+struct LList {
+    int num;
+    void *next;
+} LList;
 
 int main() {
 
-    bootHTTPServer();
     short x, y;
 
     x = 12;
@@ -21,7 +27,7 @@ int main() {
         printf("%i\n", i);
     }*/
 
-    int lower, higher, temp;
+    int lower, higher;
     float result;
 
     lower = higher = 1;
@@ -76,8 +82,47 @@ int main() {
 
     printf("%s\n", reversedName);
 
+    short lim, temp;
+    lim=1;
+    temp=0;
+
+    while(lim > temp) {
+        temp = lim;
+        lim++;
+    }
+    printf("short range comp - %d >= x >= %d\n", lim, temp);
+    printf("short range lim - %d ... %d\b\a\f\n\r\t\v\\\\'\"F", SHRT_MIN, SHRT_MAX);
+    printf("char range %c %c\n", CHAR_MIN, CHAR_MAX);
+
+
+    char s1[] = "aaaaaaaabb";
+    char s2[] = "uytrewqbb";
+    printf("%d \n", any(s1, s2));
+
 
     return 0;
+}
+int any(char s1[], char s2[]) {
+    int i, len1, len2;
+    while (s1[len1] != '\0') {
+        printf("scan s1 %s\n", s1);
+        len1++;
+    }
+    i=0;
+    while (s2[len2] != '\0') {
+        len2++;
+        printf("scan s2\n");
+    }
+    //int j, k = 0;
+    for(int j=0; j < len1; j++) {
+        for (int k=0; k<len2; k++) {
+            //printf("compare %c == %c; j=%d, k=%d;\n", s1[j], s2[k], j, k);
+            if(s1[j] == s2[k]) {
+                return j;
+            }
+        }
+    }
+    return -1;
 }
 
 char *reverseStr(char str[]) {
@@ -90,7 +135,12 @@ char *reverseStr(char str[]) {
         reversed[i] = str[len-1-i];
 
     return reversed;
+
+
 }
+
+
+
 
 
 int add2Numbers(int x, int y) {
